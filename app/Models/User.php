@@ -42,4 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Get messages for the user.
+     *
+     * @return void
+     */
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }
