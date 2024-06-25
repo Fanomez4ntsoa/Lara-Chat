@@ -29,11 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify({ message })
             });
-            
+
             if(!response.ok) {
                 throw new Error('Network response was not ok on sending message');
             }
-    
+
             const newMessage = await response.json();
             const messageElement = document.createElement('div');
             messageElement.textContent = `${newMessage.user.name}: ${newMessage.message}`;

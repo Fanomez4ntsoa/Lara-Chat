@@ -19,7 +19,7 @@ class ChatController extends Controller
         $message = $user->messages()->create([
             'message' => $request->message
         ]);
-        
+
         broadcast(new NewMessage($message))->toOthers();
         return response()->json([
             'user'      => $user,
