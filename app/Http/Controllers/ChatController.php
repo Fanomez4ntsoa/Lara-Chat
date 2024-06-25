@@ -10,17 +10,21 @@ class ChatController extends Controller
 {
     public function index()
     {
-        return view('chat.index');
+        return view('chat');
     }
 
     public function sendMessage(Request $request)
     {
-        $message = auth()->user()->messages()->create([
+        $user = auth()->user();
+        $message = $user->messages()->create([
             'message' => $request->message
         ]);
-
+        
         broadcast(new NewMessage($message))->toOthers();
-        return response()->json(['success' => true]);
+        return response()->json([
+            'user'      => $user,
+            'success'   => $message->message
+        ]);
     }
 
     public function getMessages()
