@@ -33,12 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if(!response.ok) {
                 throw new Error('Network response was not ok on sending message');
             }
-
-            const newMessage = await response.json();
-            const messageElement = document.createElement('div');
-            messageElement.textContent = `${newMessage.user.name}: ${newMessage.message}`;
-            messagesContainer.appendChild(messageElement);
             messageInput.value = '';
+
+            // const newMessage = await response.json();
+            // const messageElement = document.createElement('div');
+            // messageElement.textContent = `${newMessage.user.name}: ${newMessage.message}`;
+            // messagesContainer.appendChild(messageElement);
 
         } catch (error) {
             console.error('Error sending message', error);
@@ -53,4 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
             sendMessage();
         }
     });
+
+    // Écouter les événements de diffusion de nouveaux messages
+    window.Echo.channel('chat')
+        .listen('NewMessage', (e) => {
+            const messageElement = document.createElement('div');
+            messageElement.textContent = `${e.message.user.name}: ${e.message.message}`;
+            messagesContainer.appendChild(messageElement);
+    });
+
 });

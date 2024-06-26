@@ -28,11 +28,12 @@ class NewMessage
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn(): array
+    public function broadcastOn()
     {
-        return [
-            new PrivateChannel('chat-channle'),
-        ];
+        return new Channel('chat');
+        // return [
+        //     new PrivateChannel('chat-channle'),
+        // ];
     }
 
     public function broadcastAs()
